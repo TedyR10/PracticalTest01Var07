@@ -1,6 +1,5 @@
 package lab03.eim.systems.cs.pub.practicaltest01var07
 
-
 import android.app.Service
 import android.content.Intent
 import android.os.Handler
@@ -8,6 +7,7 @@ import android.os.IBinder
 import android.util.Log
 import java.util.*
 import kotlin.random.Random
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 class PracticalTest01Var07Service : Service() {
 
@@ -23,9 +23,7 @@ class PracticalTest01Var07Service : Service() {
                 putExtra("random3", random.nextInt(100))
                 putExtra("random4", random.nextInt(100))
             }
-            sendBroadcast(broadcastIntent)
-
-            Log.i("ViewRootImpl@631db0[PracticalTest01MainActivity]", "Broadcasted random numbers")
+            LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent)  // Use LocalBroadcastManager
 
             handler.postDelayed(broadcastRunnable, 10000) // repeat every 10 seconds
         }

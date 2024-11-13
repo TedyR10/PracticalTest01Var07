@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import kotlin.random.Random
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
@@ -85,7 +86,6 @@ class PracticalTest01Var07MainActivity : AppCompatActivity() {
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            Log.d("PracticalTest01Var07MainActivity", "Broadcast received")
             val random1 = intent.getIntExtra("random1", 0)
             val random2 = intent.getIntExtra("random2", 0)
             val random3 = intent.getIntExtra("random3", 0)
@@ -98,18 +98,15 @@ class PracticalTest01Var07MainActivity : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
         super.onResume()
-        Log.d("PracticalTest01Var07MainActivity", "Broadcast receive")
-        registerReceiver(broadcastReceiver, IntentFilter("com.example.broadcast.RANDOM_NUMBERS"),
-            RECEIVER_NOT_EXPORTED
-        )
+        LocalBroadcastManager.getInstance(this)
+            .registerReceiver(broadcastReceiver, IntentFilter("com.example.broadcast.RANDOM_NUMBERS"))
     }
 
     override fun onPause() {
         super.onPause()
-        unregisterReceiver(broadcastReceiver)
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
     }
 
 
