@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -21,6 +24,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PracticalTest01Var07SecondaryActivity" />
+        <service android:name=".PracticalTest01Var07Service"
+            android:exported="true"
+            android:foregroundServiceType="shortService" />
+        <receiver android:name=".PracticalTest01Var07MainActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.broadcast.RANDOM_NUMBERS" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
